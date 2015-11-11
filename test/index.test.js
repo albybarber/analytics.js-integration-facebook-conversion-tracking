@@ -112,6 +112,22 @@ describe('Facebook Conversion Tracking', function() {
           currency: 'USD'
         }]);
       });
+
+      it('should send currency', function() {
+        analytics.track('login', { currency: 'USD' });
+        analytics.called(window._fbq.push, ['track', 1, {
+          value: '0.00',
+          currency: 'USD'
+        }]);
+      });
+
+      it('should send currency for a non US currency', function() {
+        analytics.track('login', { currency: 'GBP' });
+        analytics.called(window._fbq.push, ['track', 1, {
+          value: '0.00',
+          currency: 'GBP'
+        }]);
+      });
     });
   });
 });
